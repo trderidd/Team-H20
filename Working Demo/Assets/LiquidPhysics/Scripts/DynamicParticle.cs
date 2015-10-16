@@ -99,12 +99,16 @@ public class DynamicParticle : MonoBehaviour {
 	}
 	// Here we handle the collision events with another particles, in this example water+lava= water-> gas
 	void OnCollisionEnter2D(Collision2D other){
-		if(currentState==STATES.WATER && other.gameObject.tag=="DynamicParticle"){ 
-			if(other.collider.GetComponent<DynamicParticle>().currentState==STATES.LAVA){
-				SetState(STATES.GAS);
+		if (currentState == STATES.WATER && other.gameObject.tag == "DynamicParticle") { 
+			if (other.collider.GetComponent<DynamicParticle> ().currentState == STATES.LAVA) {
+				SetState (STATES.GAS);
 			}
 		}
-
+		if (currentState==STATES.WATER && other.gameObject.tag == "Evaporator") {
+				SetState(STATES.GAS);
+		}
+		if (currentState==STATES.GAS && other.gameObject.tag == "Condensor") {
+			SetState(STATES.WATER);
+		}
 	}
-	
 }
